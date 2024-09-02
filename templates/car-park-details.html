@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/main.css">
+    <title>Car Park Details</title>
+</head>
+<body>
+<div class="bg-white">
+
+  <header class="absolute inset-x-0 top-0 z-50">
+    <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <div class="flex lg:flex-1">
+        <a href="{{ url_for('index') }}" class="-m-1.5 p-1.5">
+            <span class="sr-only">Eventually</span>
+            <span class="text-xl font-semibold text-indigo-600">Eventually</span>
+        </a>
+      </div>
+
+      <div class="flex lg:hidden">
+        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+          <span class="sr-only">Open main menu</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+</div>
+
+<div class="container">
+    <div class="bg-white py-24 sm:py-32">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:text-center">
+                <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ event_title }}</p>
+                <p class="mt-6 text-lg leading-8 text-gray-600">Find directions to a car park near your event. <parks></parks>.</p>
+            </div>
+            <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                {% if car_parks %}
+                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                    {% for car_park in car_parks %}
+                    <div class="flex flex-col border border-gray-300 rounded-lg p-4">
+                        <dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                            <!-- Car icon -->
+                            <svg class="h-5 w-5 flex-none text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 12h2l2-5h10l2 5h2m-4 0v6m-14 0v-6m0 0H7m10 0h4m-14 0a2 2 0 100 4 2 2 0 100-4zm14 0a2 2 0 100 4 2 2 0 100-4M6 6h12M6 6v2m12-2v2"></path>
+                            </svg>
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                            <p class="flex-auto">{{ car_park.location }}</p>
+                            <p class="mt-6">
+                                <a href="#" class="text-sm font-semibold leading-6 text-indigo-600">Get Directions<span aria-hidden="true">→</span></a>
+                            </p>
+                        </dd>
+                    </div>
+                    {% endfor %}
+                </dl>
+                {% else %}
+                <p>No car park information available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

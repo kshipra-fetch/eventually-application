@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/main.css">
+    <title>Events</title>
+</head>
+<body>
+<div class="bg-white">
+
+  <header class="absolute inset-x-0 top-0 z-50">
+    <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <div class="flex lg:flex-1">
+        <a href="{{ url_for('index') }}" class="-m-1.5 p-1.5">
+            <span class="sr-only">Eventually</span>
+            <span class="text-xl font-semibold text-indigo-600">Eventually</span>
+        </a>
+      </div>
+
+      <div class="flex lg:hidden">
+        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
+          <span class="sr-only">Open main menu</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+</div>
+
+<div class="bg-white py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Check out what's happening around you.</h2>
+    </div>
+    <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      {% for event in events %}
+      <article class="flex flex-col items-start justify-between border border-gray-300 rounded-lg p-4">
+        <div class="max-w-xl">
+          <div class="group relative">
+            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                <a href="{{ url_for('car_park', event_location=event.location, event_title=event.title, event_date = event.date.when) }}">
+                    <span class="absolute inset-0"></span>
+                    {{ event.title }}
+                </a>
+            </h3>
+            <div class="mt-8 flex items-center gap-x-4 text-xs">
+              <time datetime="{{ event.date.when }}" class="text-gray-500">{{ event.date.when }}</time>
+            </div>
+            <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{ event.description }}</p>
+          </div>
+          <div class="relative mt-8 flex flex-col items-start gap-x-4">
+            <div class="text-sm leading-6">
+              <p class="font-semibold text-gray-900">
+                Location
+              </p>
+              <p class="text-gray-600">{{ event.location }}</p>
+            </div>
+            <a href="{{ event.url }}" class="mt-4 inline-flex items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500">
+                Find Out More
+            </a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
